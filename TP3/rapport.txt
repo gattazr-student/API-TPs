@@ -1,0 +1,44 @@
+#########
+## TP3 ##
+#########
+
+Exercice 1 :
+------------
+
+Tri du tableau par methode trirapide
+function partition (premier,dernier : in integer; compteurTests: in out integer) return integer is
+	pivot : integer := A(premier);
+	compteur : integer := premier;
+	temp : integer :=0;
+	save : integer := 0;
+	begin -- Procedure
+		for i in premier+1..dernier loop
+			compteurTests := compteurTests + 2;
+			if (A(i)<pivot) then
+				compteur := compteur +1;
+
+				save := A(i);
+				A(i) := A(compteur);
+				A(compteur) := save;
+			end if;				
+		end loop;
+		compteurTests := compteurTests + 1;
+		save := A(premier);
+		A(premier) := A(compteur);
+		A(compteur) := save;
+		return compteur;
+end partition;
+
+-- Tri du tableau par methode trirapide
+procedure triRapide (premier, dernier : in integer; compteurTests: in out integer) is
+	pivot : integer :=0;
+	begin
+		if (premier<dernier) then
+			pivot := partition(premier,dernier, compteurTests);
+			triRapide(premier, pivot-1, compteurTests);
+			triRapide(pivot+1, dernier, compteurTests);
+		end if;
+		compteurTests := compteurTests + 1;
+end triRapide;
+
+

@@ -1,0 +1,126 @@
+Mail :
+camille.schreck@imag.fr (Gr 1)
+gwenael.delaval@imag.fr (Gr 2)
+
+[API-TP] 
+
+# Excercice 1
+#############
+
+Jeu de tests :
+--------------
+LE jour			 	-> doit retourner 1
+le jour 			-> doit retourner 0
+malemener 			-> doit retourner 0
+malemener 			-> doit retourner 0
+super LE paragraphe -> doit retourner 1
+super le paragraphe -> doit retourner 0
+paraboLE 			-> doit retourner 0
+parobole 			-> doit retourner 0
+
+
+En regardant les sources :
+--------------------------
+compter_les_le_1 :
+Compte uniquement les LE sans vérifier si il y a des espaces avant ou après
+
+compter_les_le_2 :
+La boucle est différente mais les erreurs détectés sont les mêmes que pour compter_les_le_1
+
+compter_les_le_3 :
+La boucle est différente mais les erreurs détectés sont les mêmes que pour compter_les_le_1
+
+compter_les_le_4 :
+La boucle est différente mais les erreurs détectés sont les mêmes que pour compter_les_le_1
+
+compter_les_le_5 :
+Ce programme est en tout point similaire a compter_les_le_1.adb à l'exception d'un test qui vérifie que la chaine de string n'est pas vide avant d'itérer.
+
+compter_les_le_6 :
+Le premier précent est un L donc lorque le texte commence par E, il est comptabilisé
+
+compter_les_le_7 :
+Si le programme trouve un L dans le chaine, un LE est comptabilisé
+
+compter_les_le_8 :
+Le test est différent car utilse un boolean au lieu de conserver la valeur précédente. Les erreurs détectés sont les mêmes que pour compter_les_le_1
+
+compter_les_le_9 :
+Ce programme est en tout point similaire a compter_les_le_3 à l'exception d'un test qui vérifie que la chaine de string n'est pas vide avant d'itérer.
+
+# Excercice 2
+#############
+input.txt
+>>
+LE jour
+le jour
+maLEmener
+malemener
+super LE paragraphe
+super le paragraphe
+paraboLE
+parobole
+ELLE
+elle
+L E
+l e
+e l
+E L
+
+Les tests fonctionnent. (Un exeption est relevé dans texte.ads avec la String "E L")
+
+# Excercice 3
+#############
+Pour compiler le programme, il a fallu remplacer la fonction put_line() dans le source par put()
+
+Le programme ne fonctionnera pas quand :
+	- Les chaine font plus de 10 charactères -> Je n'avais pas anticipé un cas de ce genre lors de la création de mon jeu de test
+	- Ce n'est pas le mot "LE" qui est détecté mais l'enchainement des deux charactères.
+
+Nouveau jeu de test :
+LE jour
+le jour
+maLEmener
+malemener
+super LE paragraphe
+super le paragraphe
+paraboLE
+parobole
+ELLE
+elle
+L E
+l e
+e l
+E L
+LE très longue phrase encore plus longue LE
+
+> atester.adb 
+with Ada.Text_IO, Ada.Integer_Text_IO; 
+use Ada.Text_IO, Ada.Integer_Text_IO;
+
+procedure atester is				   
+    i, NbLE, N : Natural;
+   -- Les strings se manipulent comme un tableau de caract�re ...	
+    T : STRING(1..255);
+begin 
+    NbLE := 0;
+    i := 1;        
+    get_line(T,N);   
+    if N = 255 then 
+       Ada.Text_Io.Put_line("WARNING ! The string must be at most 255 char long ! Others chars will be ignored.");
+    end if;		
+    while i <= N loop
+       if T(i) = 'L' then
+          i := i + 1;
+          if T(i) = 'E' then
+             NbLE := NbLE + 1;
+          end if;
+       end if;  
+       i := i + 1; 
+    end loop;
+    
+    Put(NbLE);
+    New_Line;
+    
+end atester;
+

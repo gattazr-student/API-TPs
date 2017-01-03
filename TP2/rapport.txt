@@ -1,0 +1,86 @@
+#########
+## TP2 ##
+#########
+
+Exercice 1 :
+------------
+
+procedure initialise_tableau(N : in integer) is
+begin
+	for i in 1..NMAX loop
+		A(i) := NombreAleatoire.Random(Semence);
+	end loop;
+end initialise_tableau;
+
+procedure testtri is
+...
+begin
+	NombreAleatoire.Reset(Semence);
+	TestUnTri(100);
+end testtri;
+
+Exercice 2 :
+------------
+
+procedure testUnTri(N : in integer) is
+	Temps1, Temps2: Ada.Real_Time.Time;
+	Duree: Ada.Real_Time.Time_Span;
+begin
+	for i in 1..10 loop
+	...
+	end loop
+end testUnTri;
+
+
+Exercice 3 :
+------------
+procedure testtri is
+...
+begin
+	NombreAleatoire.Reset(Semence);
+	i := 1000;
+	while i <= 10000 loop
+		TestUnTri(i);	
+		i := i + 1000;
+		Ada.Text_Io.New_Line;
+	end loop;
+end testtri;
+
+Exercice 4 :
+------------
+La courbe tracé a une courbe de tendance de tedance égale à 1.3649x^(1.9892). Le coefficent de corrélation est égal à 0.9998. La courbe de tendance est donc pertinente.
+
+Nous avions déterminé la complexité de l'algorithme de tri par insertion égale à n^2. L'évolution du temps d'éxecution du tri par rapport aux nombres d'éléments à trier suit cette valeur.
+
+
+Exercice 5 :
+------------
+procedure TriParInsertion( N: in integer; compteurTests: out integer) is
+	i, Clef: integer;
+begin
+	compteurTests := 0;
+	for j in 2..N loop
+
+		Clef := A(j);
+
+		i := j-1;
+
+		while (i>0) and then A(i) > Clef loop
+			A(i+1) := A(i);
+			i := i-1;
+			compteurTests := compteurTests + 2;
+		end loop;
+		compteurTests := compteurTests + 1;
+
+		A(i+1) := Clef;
+
+	end loop;
+
+end TriParInsertion;
+
+Exercice 6 :
+------------
+La courbe tracé a une courbe de tendance de tedance égale à 501772x^(1.9985). Le coefficent de corrélation est égal à 1. Il semble peu problable que 1 soit la vrai valeur, il s'agit d'une simplification du logiciel de calcul. Malgré cela, ce coefficient nous permet de dire que la courbe de tendance est pertinente.
+
+Nous avions déterminé la complexité de l'algorithme de tri par insertion égale à n^2. L'évolution du nombre de tests effectués pour effectuer le tri par rapport aux nombres d'éléments à trier suit cette valeur.
+
